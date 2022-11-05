@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <meta charset="UTF-8">
+    <title>Editar Pupil</title>
+</head>
+
+<body>
+    <section th:fragment="editarPupil">
+        <div sec:authorize="hasRole('ROLE_TUTOR')">
+
+        </div>
+        <form th:action="@{/guardarPupil}" method="post" th:object="${pupil}" class="was-validated"><!-- th relaciona lo que se cree en un objeto de tipo padministrator-->
+            <input type="hidden" name="id_pupil" th:field="*{id_pupil}"/> <!--acceder al atributo de tipo id_ -->
+            <section th:replace="tutors/botonesEditarPupil :: botonesEditarPupil"></section>
+            <div id="details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                 <div class="card-header">
+                                     <h4> [[#{accion.editar}]]</h4>
+                                 </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="pupilName">[[#{actor.enrollment}]]</label>
+                                            <input type="number" class="form-control" name="enrollment" required="true" th:field="*{enrollment}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pupilName">[[#{actor.name}]]</label>
+                                            <input type="text" class="form-control" name="pupilName" required="true" th:field="*{pupilName}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pupilLastName">[[#{actor.lastName}]]</label>
+                                            <input type="text" class="form-control" name="pupilLastName" required="true" th:field="*{pupilLastName}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">[[#{actor.email}]]</label>
+                                            <input type="email" class="form-control" name="email" required="true" th:field="*{email}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pw">[[#{actor.pw}]]</label>
+                                            <input type="text" class="form-control" name="pw" required="true" th:field="*{pw}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="progress">[[#{actor.progress}]]</label>
+                                            <input type="number"  min="0" max="100" class="form-control" name="progress" required="true" th:field="*{progress}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="semester">[[#{actor.semester}]]</label>
+                                            <input type="number"  min="1" max="18" class="form-control" name="semester" required="true" th:field="*{semester}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="average">[[#{actor.average}]]</label>
+                                            <input type="number"  min="5" max="10" class="form-control" name="average" required="true" th:field="*{average}"/>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label for="beginning">[[#{actor.beginning}]]</label>
+                                            <input type="date"  class="form-control" name="beginning" required="true" th:field="*{beginning}"/>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label for="beginning">[[#{actor.beginning}]]</label>
+                                            <input type="date"  class="form-control" name="beginning" required="true" th:field="*{beginning}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end">[[#{actor.end}]]</label>
+                                            <input type="date"  class="form-control" name="end" required="true" th:field="*{end}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_binnacle">[[#{actor.id_binnacle}]]</label>
+                                            <input type="number" class="form-control" name="id_binnacle" required="false" th:field="*{id_binnacle}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_carrer">[[#{actor.id_carrer}]]</label>
+                                            <input type="number" class="form-control" name="id_carrer" required="false" th:field="*{id_carrer}"/>
+                                        </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> 
+    </section>
+    
+</body>
+</html>

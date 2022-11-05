@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Pupils List</title>
+</head>
+<body>
+<section th:fragment="listadoPupils" id="usuario">
+    <div sec:authorize="hasRole('ROLE_TUTOR')">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>[[#{plantilla.tituloLisPupils}]]</h4>
+                        </div>
+                        <div th:if="${pupils != null and !pupils.empty}">
+                            <table class="table table-stryped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th th:text="#{actor.name}">nombre</th>
+                                        <th th:text="#{actor.lastName}">apellido</th>
+                                        <th th:text="#{actor.email}">correo</th>
+                                        <th th:text="#{actor.enrollment}">matricula</th>
+                                        <th th:text="#{actor.pw}">password</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pupil, contador : ${pupils}">
+                                       <td>[[${contador.count}]]</td>
+                                       <td>[[${pupil.pupilName}]]</td>
+                                       <td>[[${pupil.pupilLastName}]]</td>
+                                       <td>[[${pupil.email}]]</td>
+                                       <td>[[${pupil.pw}]]</td>
+                                       <td>
+                                           <a sec:authorize="hasRole('ROLE_TUTOR')" th:href="@{/editarPupil/} + ${pupil.id_pupil}" class="btn btn-secondary">
+                                               <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
+                                           </a>
+                                       </td>
+                                       <td>
+                                            <a sec:authorize="hasRole('ROLE_TUTOR')" th:href="@{/eliminar(id_pupil=${pupil.id_pupil})}" 
+                                            class="btn btn-dark">
+                                                <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${pupils == null or pupils.empty}">
+                            <span th:text="#{actor.listaVaciaPupils}">Lista vacia pupilos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center bg-danger text-white mb-3">
+                        <div class="card-body">
+                            <h3 th:text="#{actor.totalPupils}">numero de pupilos dados de alta</h3>
+                            <h4 class="display-4">
+                                [[${totalPupils}]]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Acept Pupil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+
+<body>
+    <section th:fragment="agregarPupil">
+    <div id="agregarPupil" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" th:text="#{accion.agregar}">[[#{Pupil}]]</h5>
+                    <button  class="close" data-bs-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div> 
+                <!-- validacion del formulario con bootstrap, tambien se podria hacer con spring -->
+                <form th:action="@{/guardarPupil}" th:object="${Pupil}" method="POST" class="was-validated"><!--en el controlador se ha sobreescribido el metodo con polimorfismo-->
+                    <div class="modal-body">
+                        <!-- <div class="form-group">
+                            <label for="id_pupil" th:text="#{actor.id_pupil}">id_pupil</label>
+                            <input type="text" class="form-control" name="id_pupil" >
+                            </div>-->
+                            <!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        <div class="form-group">
+                            <label for="enrollment" th:text="#{actor.enrollment}">enrollmen</label>
+                            <input type="number" class="form-control" name="enrollment" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="pupilName" th:text="#{actor.name}">Nombre</label>
+                            <input type="text" class="form-control" name="pupilName" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="pupilLastName" th:text="#{actor.lastName}">Apellido</label>
+                            <input type="text" class="form-control" name="pupilLastName" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="email" th:text="#{actor.email}">Email</label>
+                            <input type="email" class="form-control" name="email" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="pw" th:text="#{actor.pw}">Contraseña</label>
+                            <input type="password" class="form-control" name="pw" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="progress" th:text="#{actor.progress}">progreso</label>
+                            <input type="number" class="form-control" name="progress" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="semester" th:text="#{actor.semester}">semestre</label>
+                            <input type="number" class="form-control" name="semester" required="true"  min="1" max="20"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="average" th:text="#{actor.average}">promedio</label>
+                            <input type="number" class="form-control" name="average" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="beginning" th:text="#{actor.beginning}">fin</label>
+                            <input type="date" class="form-control" name="beginning" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="end" th:text="#{actor.end}">fin</label>
+                            <input type="date" class="form-control" name="end" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="id_binnacle" th:text="#{actor.id_binnacle}">Notas, comentarios, etc</label>
+                            <input type="text" class="form-control" name="id_binnacle" required="false"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                        <div class="form-group">
+                            <label for="id_carrer" th:text="#{actor.id_carrer}">id_carrer</label>
+                            <input type="text" class="form-control" name="id_carrer" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                        <button class="btn btn-secondary" type="submit" data-bs-dismiss="modal" th:text="#{accion.regresar}">Regresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

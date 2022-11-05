@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+ 
+<head>
+    <title>Botones Agregar</title>
+    <meta charset='UTF-8'/>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!-- T U T O R E S-->
+<section>
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+        <div th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                        <a href="#" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#agregarAdministrator">
+                            <i class="fas fa-plus" th:text="#{accion.agregar}+' '+'Administrador'"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/plantilla :: head">
+    <meta charset='UTF-8'>
+    <title>Tutors data</title>
+</head>
+
+<body>
+    <header th:replace="layout/plantilla :: header"></header>
+    <section th:replace="tutors/editarPupil :: editarPupil"></section>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>
+
+<!-- El siguiete codigo se enviara a otro .html
+    <h2>[[#{administrator.formulario}]]</h2>
+    <a th:href="@{/}">[[#{accion.regresar}]]</a>
+    <br/>
+    <form th:action="@{/guardar}" method="post" th:object="${administrator}"> th relaciona lo que se cree en un objeto de tipo padministrator
+        <input type="hidden" name="id_admi" th:field="*{id_admi}"/>
+        <br/>
+        <label for="Nombre">nombre</label>
+        <input type="text" name="adminName" th:field="*{adminName}"/> <!--aspociar los atributos se utiliza th:field y agregar * para seleccionar el atributp
+        <span th:if="${#fields.hasErrors('adminName')}"  th:errors="*{adminName}">Error del nombre</span>
+        <br/>         
+        <label for="apellido">Apellido</label>
+        <input type="text" name="adminLastName" th:field="*{AdminLastName}"/>
+        <span th:if="${#fields.hasErrors('adminLastName')}"  th:errors="*{adminLastName}">Error del apellido</span>
+        <br/>
+        <label for="email">Email</label>
+        <input type="text" name="email" th:field="*{email}"/>
+        <span th:if="${#fields.hasErrors('email')}"  th:errors="*{email}">Error email</span>
+        <br/>
+        <label for="pw">[[#{administrator.pw}]]</label>
+        <input type="text" name="pw" th:field="*{pw}"/>
+        <!--<span th:if="${#fields.hasErrors('pw')}"  th:errors="*{pw}">Error pw</span>
+        <br/>
+        <input type="submit" name="guardar" th:value="#{accion.guardar}"/>
+    </form> -->

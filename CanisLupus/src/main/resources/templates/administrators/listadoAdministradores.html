@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Administrators List</title>
+</head>
+
+<body>
+<section th:fragment="listadoAdministradores" id="usuario">
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>[[#{plantilla.titulo-list}]]</h4>
+                    </div>
+                    <div th:if="${administrators != null and !administrators.empty}">
+                        <table class="table table-stryped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th th:text="#{administrator.nombre}">nombre</th>
+                                    <th th:text="#{administrator.apellido}">apellido</th>
+                                    <th th:text="#{administrator.email}">correo</th>
+                                    <th th:text="#{administrator.pw}">password</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="admin, contador : ${administrators}">
+                                   <td>[[${contador.count}]]</td>
+                                   <td>[[${admin.adminName}]]</td>
+                                   <td>[[${admin.adminLastName}]]</td>
+                                   <td>[[${admin.email}]]</td>
+                                   <td>[[${admin.pw}]]</td>
+                                   <td>
+                                       <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${admin.id_admi}" class="btn btn-secondary">
+                                           <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
+                                       </a>
+                                   </td>
+                                   <td>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar(id_admi=${admin.id_admi})}" 
+                                        class="btn btn-dark">
+                                            <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" th:if="${administrators == null or administrators.empty}">
+                        <span th:text="#{administrador.Lista-vacia}">Lista vacia</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-danger text-white mb-3">
+                    <div class="card-body">
+                        <h3 th:text="#{administrator.total}">numero de admistradores dados de alta</h3>
+                        <h4 class="display-4">
+                            [[${totalAdministrators}]]
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

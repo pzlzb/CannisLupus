@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Agregar Administrador</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <section th:fragment="agregarAdministrator">
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div id="agregarAdministrator" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" th:text="#{accion.agregar}">[[{Administrador}]]</h5>
+                        <button  class="close" data-bs-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div> 
+                    <!-- validacion del formulario con bootstrap, tambien se podria hacer con spring -->
+                    <form th:action="@{/guardar}" th:object="${administrator}" method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nombre" th:text="#{administrator.nombre}">Nombre</label>
+                                <input type="text" class="form-control" name="adminName" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido" th:text="#{administrator.apellido}">Apellido</label>
+                                <input type="text" class="form-control" name="AdminLastName" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                            </div>
+                            <div class="form-group">
+                                <label for="email" th:text="#{administrator.email}">Email</label>
+                                <input type="email" class="form-control" name="email" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                            </div>
+                            <div class="form-group">
+                                <label for="pw" th:text="#{administrator.pw}">Teléfono</label>
+                                <input type="password" class="form-control" name="pw" required="true"><!--la etiqueta name debe ser igual al nombre de los atributos del onbejto, para realizar la validacion-->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="submit" th:text="#{accion.regresar}">Regresar</button>
+                            <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</body>
+</html>
