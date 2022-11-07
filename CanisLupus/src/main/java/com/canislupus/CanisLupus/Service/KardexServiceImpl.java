@@ -16,7 +16,7 @@ public class KardexServiceImpl implements KardexService {
     @Transactional(readOnly = true)
     public Kardex encontrarKardex(Kardex kardex) {
         // TODO Auto-generated method stub
-        return kardexDao.findById((Long)kardex.getMatricula().getMatricula().getIdKardex()).orElse(null);
+        return kardexDao.findByidKardex((Long)kardex.getStudent().getIdStudent());
     }
     @Override
     @Transactional(readOnly = true)

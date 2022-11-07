@@ -15,9 +15,10 @@ public class Kardex implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idKardex;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn( name = "matricula", referencedColumnName ="idStudent")
-    private Student matricula;
+    @OneToOne
+    //@MapsId
+    @JoinColumn(name = "matricula")
+    private Student student;
 
     @NotEmpty
     private Date begginningP;

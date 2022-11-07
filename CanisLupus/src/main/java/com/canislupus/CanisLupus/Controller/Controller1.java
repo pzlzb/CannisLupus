@@ -151,7 +151,7 @@ public class Controller1 {
         System.out.println("========================\n student:"+ student.toString()+"========================\n");
         System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
         studentService.guardar(student);
-        kardex.setMatricula(student);;
+        kardex.setStudent(student);
         kardexService.guardarKardex(kardex);
         return "/login";
      }
