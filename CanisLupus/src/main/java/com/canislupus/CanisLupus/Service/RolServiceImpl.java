@@ -1,7 +1,6 @@
 package com.canislupus.CanisLupus.Service;
 import com.canislupus.CanisLupus.DAO.IAdministratorsDAO;
 import com.canislupus.CanisLupus.DAO.IRolsDAO;
-import com.canislupus.CanisLupus.DAO.IStudentsDAO;
 import com.canislupus.CanisLupus.DAO.ITutorsDAO;
 import com.canislupus.CanisLupus.Domain.Administrator;
 import com.canislupus.CanisLupus.Domain.Rol;
@@ -26,8 +25,6 @@ public class RolServiceImpl implements RolService, UserDetailsService {
     private IAdministratorsDAO adminDao;
     @Autowired
     private ITutorsDAO tutorDao;
-    @Autowired
-    private IStudentsDAO studentDao;
 
     @Override
     @Transactional(readOnly=true)
@@ -49,13 +46,6 @@ public class RolServiceImpl implements RolService, UserDetailsService {
             rol.add(new SimpleGrantedAuthority("TUTOR"));
             //llave foranea 3  es para administradores->
             if(usuario.getTutorIdUser().getIdUser() == 3){UserDetails  = new User(usuario.getTutorName(), usuario.getTutorPw(), rol);}
-        } else if (studentDao.findBystudentEmail(email) != null) {
-            Student usuario = studentDao.findBystudentEmail(email);
-            var rol =  new ArrayList<GrantedAuthority>();
-            rol.add(new SimpleGrantedAuthority("STUDENT"));
-            //llave foranea 3  es para administradores->
-            if(usuario.getStudentidUser().getIdUser() == 3){UserDetails  = new User(usuario.getStudentName(), usuario.getStudentPw(), rol);}
-
         }
        return UserDetails;
     }

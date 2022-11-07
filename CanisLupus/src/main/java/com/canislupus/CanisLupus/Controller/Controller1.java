@@ -21,10 +21,7 @@ public class Controller1 {
     private AdministratorService adminService;
     @Autowired
     private TutorService tutorService;
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private KardexService kardexService;
+  
 
     @GetMapping ("/")
     public String inicio(Model model, @AuthenticationPrincipal User user){
@@ -119,42 +116,9 @@ public class Controller1 {
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&PUPIL´S LINKS&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    @PostMapping("/guardarPupil")
-    public String guardar (@Valid Student pupil, Errors errores){//Indicar que el objeto se va validar, el cual se llena en el fomrulario y si hay errores se dbe pasar el parametro para concer el tipo de error
-        if (errores.hasErrors()){
-            System.out.println("sssssssssssssssssssssssssssssss"+pupil.toString()+"sssssssssssssssssssssssssssssss");
-            return "tutors/modificarPupil";
-        }
-        System.out.println("GUARDAR: sssssssssssssssssssssssssssssss"+pupil.toString()+"sssssssssssssssssssssssssssssss");
-        studentService.guardar(pupil);
-        return "redirect:/";
-    } 
-    @GetMapping ("/editarPupil/{id_pupil}")
-    public String editar(Student pupil, Model model){
-        Student aux;
-        aux = studentService.encontrarStudent(pupil);
-        model.addAttribute("pupil", aux);// mismo nombre que la variable del archivo .html ue recibe el modelo
-        return "/tutors/modificarPupil";
-    }
-
 
      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&USER´S LINKS&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-     @PostMapping("/registry")
-     public String registrar(@Valid Student student, @Valid Kardex kardex, Errors errores){
-        if(errores.hasErrors()){
-            System.out.println("========================VALIDATION-ERRORS REGISTRY========================\n");
-            System.out.println("========================\n student:"+ student.toString()+"========================\n");
-            System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
-            return "tutors/modificarStudent";
-        }
-        System.out.println("========================VALIDATION REGISTRY========================\n");
-        System.out.println("========================\n student:"+ student.toString()+"========================\n");
-        System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
-        studentService.guardar(student);
-        kardex.setStudent(student);
-        kardexService.guardarKardex(kardex);
-        return "/login";
-     }
+
 }
 
 
