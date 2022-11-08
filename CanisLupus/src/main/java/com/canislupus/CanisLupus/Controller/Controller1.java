@@ -10,10 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import lombok.extern.slf4j.Slf4j;
 
-
-@Controller
+//@Controller
+@RestController
+@RequestMapping("/cl")
 @Slf4j//mandar info al log
 public class Controller1 {
 
@@ -26,7 +30,7 @@ public class Controller1 {
     @Autowired
     private KardexService kardexService;
 
-    @GetMapping ("/")
+    @GetMapping ("/cl/")
     public String inicio(Model model, @AuthenticationPrincipal User user){
         var ad = adminService.listarAdministrators();
         // private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
@@ -69,7 +73,7 @@ public class Controller1 {
     }
 
     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ADMINISTRATOR´S LINKS&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    @GetMapping("/agregarAdmin")
+    @GetMapping("/cl/admin/agregarAdmin")
     public String agregarAdmin(Administrator admin) {
         return "modificar";//add and update
     }
@@ -81,7 +85,7 @@ public class Controller1 {
         adminService.guardar(admin);
         return "redirect:/";
     }
-    @GetMapping ("/editar/{id_admi}")
+    @GetMapping ("/cl/admin/editar/{id_admi}")
     public String editar(Administrator admin, Model model){
         Administrator aux;
         aux = adminService.encontrarAdmin(admin);
@@ -89,7 +93,7 @@ public class Controller1 {
         return "/administrators/modificar";
     }
     //Segubda manera de pasar varibales en el url queryparameter; ya no es necesario agregar el valor en el path úesto que ya lo incluye el path al hacer queryparamter y este se asocia automaticamente al obbjeto que recibe la funcion
-    @GetMapping("/eliminar")//Spring detecta que el atributo id_admi es un atributo del objeto de tipo Administrator y crea el objeto con ese valor
+    @GetMapping("/cl/admin/eliminar")//Spring detecta que el atributo id_admi es un atributo del objeto de tipo Administrator y crea el objeto con ese valor
     public String eliminar(Administrator admin){
         adminService.eliminar(admin);
         return "redirect:/";
@@ -102,7 +106,7 @@ public class Controller1 {
         }*/
 
         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&TUTOR´S LINKS&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    @PostMapping("/guardarTutor")
+    @PostMapping("/cl/admin/guardarTutor")
     public String guardar (@Valid Tutor tutor, Errors errores){//Indicar que el objeto se va validar, el cual se llena en el fomrulario y si hay errores se dbe pasar el parametro para concer el tipo de error
         if (errores.hasErrors()){
             return "modificar";
@@ -110,7 +114,7 @@ public class Controller1 {
         tutorService.guardar(tutor);
         return "redirect:/";
     }
-    @GetMapping ("/editarTutor/{id_tutor}")
+    @GetMapping ("/cl/dmin/editarTutor/{id_tutor}")
     public String editar(Tutor tutor, Model model){
         Tutor aux;
         aux = tutorService.encontrarTutor(tutor);
@@ -156,7 +160,3 @@ public class Controller1 {
         return "/login";
      }
 }
-
-
-
-   

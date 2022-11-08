@@ -12,7 +12,6 @@
     <!--USERS X-->
     <div>
         <div class="form-group">
-            <label for="mensaje">hola mundo login: </label>
             <input type="text" name="username" id="username" />
         </div>
         
@@ -20,6 +19,14 @@
     <!--TUTORS-->
 
     <header th:replace="layout/plantilla :: header"></header>
+
+    <!--TUTORS-->
+    <div sec:authorize="hasRole('ROLE_TUTOR')">
+        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
+        <section th:replace="tutors/agregarPupil :: agregarPupil"></section>
+        <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
+    </div>
+
     <!--ADMINISTRATORS-->
     <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
         <section th:replace="administrators/botonesAgregar :: botonesAgregar"></section>
@@ -27,12 +34,6 @@
         <section th:replace="administrators/listadoAdministradores :: listadoAdministradores"></section>
         <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
         <section th:replace="tutors/agregarTutor :: agregarTutor"></section>
-        <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
-    </div>
-    <!--TUTORS-->
-    <div sec:authorize="hasRole('ROLE_TUTOR')">
-        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
-        <section th:replace="tutors/agregarPupil :: agregarPupil"></section>
         <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
     </div>
     

@@ -31,22 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-        .antMatchers(
-                "/editar/**",
-                "/agregarAdmin/**",
-                "/eliminar/**", 
-                "/editarTutor/**",
-                "/agregarTutor/**",
-                "/eliminarTutor/**")//PATHS PROTEGIDOS, PARA ACCESO EXCLUSIVO
-        .hasAnyRole("ADMINISTRATOR")//ROLES PARA ACCEDER A ESTOS PATHS
-
-        .antMatchers("/").hasAnyRole("ROLE_TUTORADO", "ROLE_ADMINISTRATOR", "ROLE_TUTOR", "SUDO")//CONTIENE CUALUIERA DE LOS ROLES INDICADOS
-        //.permitAll()//.hasAnyRole("TUTORADO", "ROLE_ADMINISTRATOR", "TUTOR", "SUDO")//CONTIENE CUALUIERA DE LOS ROLES INDICADOS
-
-        .and()
-        .formLogin()//configurar el form loggin personalizado
-        .loginPage("/login")//indicar la pagin de login que se va a utilizar
-        .and().exceptionHandling().accessDeniedPage("/errores/403");
+                                
+                                .antMatchers("/cl/tutor/**").hasRole("TUTOR")
+                                .antMatchers("/cl/student/**").hasRole("TUTORADO")
+                                .antMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
+                                .antMatchers("/cl/**").hasAnyRole("TUTORADO", "ADMINISTRATOR", "TUTOR")
+                                .anyRequest().authenticated()
+                                .and()
+                                .formLogin()
+                                .loginPage("/login")
+                                .and().exceptionHandling().accessDeniedPage("/errores/403");
     }
 
     //AUTENTICACION 2

@@ -34,9 +34,11 @@ public class RolServiceImpl implements RolService, UserDetailsService {
     public UserDetails  loadUserByUsername(String email) throws UsernameNotFoundException{
         List<Rol> u = rolDao.findAll();
         UserDetails UserDetails = null;
+        
         System.out.println("******************************************************************************\n");
         System.out.println("THERE ARE THE ROLES >> " + u.toString());
         System.out.println("******************************************************************************\n");
+
         if (adminDao.findByadminEmail(email) != null){
             Administrator usuario = adminDao.findByadminEmail(email);
             var rol =  new ArrayList<GrantedAuthority>();
