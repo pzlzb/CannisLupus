@@ -7,17 +7,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "kardex", uniqueConstraints = {@UniqueConstraint(columnNames = "matricula")})
+@Table(name = "kardex")//uniqueConstraints = {@UniqueConstraint(columnNames = "matricula")}
 public class Kardex implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idKardex;
 
     @OneToOne
-    //@MapsId
-    @JoinColumn(name = "matricula")
+    @JoinColumn(name="idKardex")
+    @MapsId
     private Student student;
 
     @NotEmpty

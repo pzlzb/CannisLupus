@@ -16,7 +16,6 @@ public class Student {
     private Long idStudent;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    //@PrimaryKeyJoinColumn
     private Kardex kardex;
 
     @NotEmpty
@@ -36,20 +35,20 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "studentIdUser")
     private Rol studentidUser;
-    public Student(@NotEmpty String studentName, @NotEmpty String studentLastName, @NotEmpty String studentEmail,
-            @NotEmpty String studentPw, java.sql.Date beginning, Tutor studentidTutor, Rol studentidUser) {
-        this.studentName = studentName;
-        this.studentLastName = studentLastName;
-        this.studentEmail = studentEmail;
-        this.studentPw = studentPw;
-        this.beginning = beginning;
-        this.studentidTutor = studentidTutor;
-        this.studentidUser = studentidUser;
-    }
-   
 
-   
-}  
+
+    public void setKardex(Kardex kardex){
+        this.kardex=kardex;
+        kardex.setStudent(this);
+    }
+    public Kardex getKardex(){
+        return kardex;
+    }
+}
+
+
+
+
  
 
  
