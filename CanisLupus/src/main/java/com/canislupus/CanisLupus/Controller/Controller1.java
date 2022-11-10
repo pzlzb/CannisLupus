@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 
 //@Controller
-@RestController
-@RequestMapping("/cl")
+//CrossOrigin(origins = "*")
+//@RestController
+//@RequestMapping(path = "cl/admin")
 @Slf4j//mandar info al log
 public class Controller1 {
 
@@ -30,9 +31,9 @@ public class Controller1 {
     @Autowired
     private KardexService kardexService;
 
-    @GetMapping ("/cl/")
+    @GetMapping ("/index/")
     public String inicio(Model model, @AuthenticationPrincipal User user){
-        var ad = adminService.listarAdministrators();
+       /* var ad = adminService.listarAdministrators();
         // private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
         log.info("ejecutandose el controller SPRING MVC");
         // log.debug("mas detalle del controlador");
@@ -56,7 +57,7 @@ public class Controller1 {
             // model.addAttribute("tutors", tutors);
             // model.addAttribute("totalTutors", tutors.size());
         }
-        /*
+        
         if(u.equals("ROLE_TUTOR")){
             var pupils = studentService.listarPupils();
             var carrers = carrerService.listarCarreras();
@@ -77,6 +78,7 @@ public class Controller1 {
     public String agregarAdmin(Administrator admin) {
         return "modificar";//add and update
     }
+    /*/
     @PostMapping("/guardar")
     public String guardar (@Valid Administrator admin, Errors errores){//Indicar que el objeto se va validar, el cual se llena en el fomrulario y si hay errores se dbe pasar el parametro para concer el tipo de error
         if (errores.hasErrors()){
@@ -96,8 +98,8 @@ public class Controller1 {
     @GetMapping("/cl/admin/eliminar")//Spring detecta que el atributo id_admi es un atributo del objeto de tipo Administrator y crea el objeto con ese valor
     public String eliminar(Administrator admin){
         adminService.eliminar(admin);
-        return "redirect:/";
-    }
+        return "redirect:/cl/";//mal
+    }*/
     /*
         @GetMapping("/eliminar/{id_admi}")//Spring detecta que el atributo id_admi es un atributo del objeto de tipo Administrator y crea el objeto con ese valor
         public String eliminar(Administrator admin){

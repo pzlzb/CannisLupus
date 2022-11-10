@@ -7,7 +7,7 @@
 
 <body>
 <section th:fragment="listadoAdministradores" id="usuario">
-<div sec:authorize="hasRole('ROLE_ADMIN')">
+<div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -34,12 +34,12 @@
                                    <td>[[${admin.email}]]</td>
                                    <td>[[${admin.pw}]]</td>
                                    <td>
-                                       <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${admin.id_admi}" class="btn btn-secondary">
+                                       <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/editar/} + ${admin.id_admi}" class="btn btn-secondary">
                                            <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
                                        </a>
                                    </td>
                                    <td>
-                                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar(id_admi=${admin.id_admi})}" 
+                                        <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/eliminar(id_admi=${admin.id_admi})}" 
                                         class="btn btn-dark">
                                             <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
                                         </a>

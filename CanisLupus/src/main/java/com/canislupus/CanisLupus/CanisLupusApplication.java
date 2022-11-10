@@ -7,12 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.canislupus.CanisLupus.DAO.IRolsDAO;
-
 @SpringBootApplication
 public class CanisLupusApplication {
-
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		
 		//SpringApplication.run(CanisLupusApplication.class, args);
 		Properties props = new Properties();

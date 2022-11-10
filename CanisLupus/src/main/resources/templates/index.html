@@ -3,22 +3,23 @@
 <!--como se va a llamar thymeleaf-->
 
 <head th:replace="layout/plantilla :: head">
-    <meta charset='UTF-8'>+
+    <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inicio</title>
 </head>
 
 <body>
-    <!--USERS X-->
-    <div>
-        <div class="form-group">
-            <input type="text" name="username" id="username" />
-        </div>
-        
-    </div>
-    <!--TUTORS-->
 
     <header th:replace="layout/plantilla :: header"></header>
+    <!--STUDENTS-->
+    <div sec:authorize="hasRole('ROLE_TUTORADO')">
+        <section th:replace="students/botonesAgregar :: botonesAgregar"></section>
+        <section th:replace="students/agregarAdministrator :: agregarAdministrator"></section>
+        <section th:replace="students/listadoAdministradores :: listadoAdministradores"></section>
+        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
+        <section th:replace="tutors/agregarTutor :: agregarTutor"></section>
+        <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
+    </div>
 
     <!--TUTORS-->
     <div sec:authorize="hasRole('ROLE_TUTOR')">
@@ -36,6 +37,7 @@
         <section th:replace="tutors/agregarTutor :: agregarTutor"></section>
         <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
     </div>
+
     
 
     <footer th:replace="layout/plantilla :: footer"></footer>

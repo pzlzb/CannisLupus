@@ -2,20 +2,23 @@ package com.canislupus.CanisLupus.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
 
 
 @Configuration//archivo de configuracion
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig {//WebSecurityConfigurerAdapter
+
     @Autowired
-    private UserDetailsService userDetailsService;
-    
+    private UserDetailsService userDetailsService;    
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -27,6 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+            .csrf().disable()
+            .authorizeRequests().anyRequest().authenticated()
+            .and()
+            .httpBasic();
+        return http.build();
+    }
+
+/* 
     //AUTORIZACION
     @Override
     protected void configure(HttpSecurity http) throws Exception{
@@ -35,14 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                                 .antMatchers("/cl/tutor/**").hasRole("TUTOR")
                                 .antMatchers("/cl/student/**").hasRole("TUTORADO")
                                 .antMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
-                                .antMatchers("/cl/**").hasAnyRole("TUTORADO", "ADMINISTRATOR", "TUTOR")
-                                .anyRequest().authenticated()
+                                .antMatchers("/cl/").hasAnyRole("TUTORADO", "ADMINISTRATOR", "TUTOR")
+                                
                                 .and()
                                 .formLogin()
                                 .loginPage("/login")
                                 .and().exceptionHandling().accessDeniedPage("/errores/403");
     }
-
+*/
     //AUTENTICACION 2
     //agregar usuarios y configurar usuarios
     //Modificacion de modo de acceso y permisos.

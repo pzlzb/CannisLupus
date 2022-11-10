@@ -7,7 +7,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </head>
 <body>
     <section th:fragment="editarAdministrator">
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
             <form th:action="@{/guardar}" method="post" th:object="${administrator}" class="was-validated"><!-- th relaciona lo que se cree en un objeto de tipo padministrator-->
                 <input type="hidden" name="id_admi" th:field="*{id_admi}"/> <!--acceder al atributo de tipo administrator -->
                 <section th:replace="administrators/botonesEditar :: botonesEditar"></section>
