@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
-    <title>Pupils List</title>
+    <title>Students List</title>
 </head>
 <body>
 <section th:fragment="listadoPupils" id="usuario">
@@ -15,7 +15,7 @@
                         <div class="card-header">
                             <h4>[[#{plantilla.tituloLisPupils}]]</h4>
                         </div>
-                        <div th:if="${pupils != null and !pupils.empty}">
+                        <div th:if="${students != null and !students.empty}">
                             <table class="table table-stryped">
                                 <thead class="thead-dark">
                                     <tr>
@@ -28,12 +28,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="pupil, contador : ${pupils}">
+                                    <tr th:each="student, contador : ${students}">
                                        <td>[[${contador.count}]]</td>
-                                       <td>[[${pupil.pupilName}]]</td>
-                                       <td>[[${pupil.pupilLastName}]]</td>
-                                       <td>[[${pupil.email}]]</td>
-                                       <td>[[${pupil.pw}]]</td>
+                                       <td>[[${student.studentName}]]</td>
+                                       <td>[[${student.studentLastName}]]</td>
+                                       <td>[[${student.studentemail}]]</td>
+                                       <td>[[${student.studentpw}]]</td>
                                        <td>
                                            <a sec:authorize="hasRole('ROLE_TUTOR')" th:href="@{/editarPupil/} + ${pupil.id_pupil}" class="btn btn-secondary">
                                                <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>

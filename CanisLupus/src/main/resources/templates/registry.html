@@ -8,7 +8,7 @@
     
 
     <section th:fragment="guardarPupil">
-        <form th:object="${student}" th:action="@{/student/}" method="post" class="was-validated"><!-- th relaciona lo que se cree en un objeto de tipo student-->
+        <form th:object="${student}" th:action="@{/registry}" method="post" class="was-validated"><!-- th relaciona lo que se cree en un objeto de tipo student-->
             <input type="hidden" name="idStudent" /> <!--acceder al atributo de tipo id_ -->
             <!--<section th:replace="tutors/botonesEditarPupil :: botonesEditarPupil"></section>-->
             <div id="details">

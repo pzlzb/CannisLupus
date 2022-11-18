@@ -88,6 +88,8 @@ public class ControllerMain {
 
      @PostMapping("/registry")
      public String registrar(@Valid Student student, @Valid Kardex kardex, Errors errores){
+        System.out.println("student: "+ student);
+        System.out.println("kardex: "+ kardex);
         if(errores.hasErrors()){
             System.out.println("========================VALIDATION-ERRORS REGISTRY========================\n");
             System.out.println("========================\n student:"+ student.toString()+"========================\n");

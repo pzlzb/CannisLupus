@@ -31,8 +31,6 @@ public class Student implements Serializable {
     private String studentEmail;
     @NotEmpty
     private String studentPw;
-    // @Basic
-    // private java.sql.Date beginningP;// @Temporal(TemporalType.DATE)// private Date  beginning;
    
     @ManyToOne
     @JoinColumn(name = "idTutor")

@@ -39,10 +39,13 @@
                                        </a>
                                    </td>
                                    <td>
-                                        <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/eliminar(idAdmin=${admin.idAdmin})}" 
+                                        <form th:action="@{/cl/admin/(idAdmin=${admin.idAdmin})}" th:method="delete">
+                                            <input type="submit" class="btn btn-primary" value="Borrar" />
+                                        </form>
+                                        <!-- <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/cl/admin/(idAdmin=${admin.idAdmin})}" th:method="delete"
                                         class="btn btn-dark">
                                             <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                             </tbody>
