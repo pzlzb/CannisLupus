@@ -1,7 +1,8 @@
-package com.canislupus.CanisLupus.Controller;
+package com.canislupus.CanisLupus.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,10 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-
-@Configuration//archivo de configuracion
+@Configuration
 @EnableWebSecurity
-public class SecurityConfig {//WebSecurityConfigurerAdapter
+public class SecurityConfig extends WebSecurityConfigurerAdapter{//WebSecurityConfigurerAdapter
 
     @Autowired
     private UserDetailsService userDetailsService;    
@@ -30,33 +30,39 @@ public class SecurityConfig {//WebSecurityConfigurerAdapter
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http
-            .csrf().disable()
-            .authorizeRequests().anyRequest().authenticated()
-            .and()
-            .httpBasic();
-        return http.build();
+    //@Bean
+    @Override
+    public void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable().authorizeRequests()
+                //.antMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
+                //.antMatchers("/cl/student/**").hasRole("STUDENT")
+                .antMatchers("/").hasAnyRole("ADMINISTRATOR","TUTOR","STUDENT")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .and()
+                .exceptionHandling().accessDeniedPage("/errores/403");
+                //return http.build();
     }
 
-/* 
-    //AUTORIZACION
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                                
-                                .antMatchers("/cl/tutor/**").hasRole("TUTOR")
-                                .antMatchers("/cl/student/**").hasRole("TUTORADO")
-                                .antMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
-                                .antMatchers("/cl/").hasAnyRole("TUTORADO", "ADMINISTRATOR", "TUTOR")
-                                
-                                .and()
-                                .formLogin()
-                                .loginPage("/login")
-                                .and().exceptionHandling().accessDeniedPage("/errores/403");
-    }
-*/
+
+   /*@Bean
+    //@Order(1)
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+            //.csrf().disable()
+            .authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+            .and().logout().permitAll()
+            //.authorizeRequests().antMatchers("/cl/admin").hasRole("ADMIN")            
+            .and().httpBasic();
+        return http.build();
+    } */ 
+    // @Bean                                                            
+	// public SecurityFilterChain formLoginFilterChain(HttpSecurity http) throws Exception {
+	// 	http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated()).formLogin();
+	// 	return http.build();
+	// }
+
     //AUTENTICACION 2
     //agregar usuarios y configurar usuarios
     //Modificacion de modo de acceso y permisos.

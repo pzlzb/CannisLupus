@@ -31,15 +31,15 @@
                                    <td>[[${contador.count}]]</td>
                                    <td>[[${admin.adminName}]]</td>
                                    <td>[[${admin.adminLastName}]]</td>
-                                   <td>[[${admin.email}]]</td>
-                                   <td>[[${admin.pw}]]</td>
+                                   <td>[[${admin.adminEmail}]]</td>
+                                   <td>[[${admin.adminPw}]]</td>
                                    <td>
-                                       <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/editar/} + ${admin.id_admi}" class="btn btn-secondary">
+                                       <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/editar/} + ${admin.idAdmin}" class="btn btn-secondary">
                                            <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
                                        </a>
                                    </td>
                                    <td>
-                                        <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/eliminar(id_admi=${admin.id_admi})}" 
+                                        <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/eliminar(idAdmin=${admin.idAdmin})}" 
                                         class="btn btn-dark">
                                             <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
                                         </a>
@@ -56,10 +56,10 @@
             <div class="col-md-3">
                 <div class="card text-center bg-danger text-white mb-3">
                     <div class="card-body">
-                        <h3 th:text="#{administrator.total}">numero de admistradores dados de alta</h3>
+                        <!-- <h3 th:text="#{administrator.total}">numero de admistradores dados de alta</h3>
                         <h4 class="display-4">
                             [[${totalAdministrators}]]
-                        </h4>
+                        </h4> -->
                     </div>
                 </div>
             </div>

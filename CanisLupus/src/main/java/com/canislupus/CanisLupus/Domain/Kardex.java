@@ -16,7 +16,7 @@ public class Kardex implements Serializable{
 
     @OneToOne
     @JoinColumn(name="idKardex")
-    @MapsId
+    @MapsId("idStudent")
     private Student student;
 
     @NotEmpty
@@ -35,5 +35,7 @@ public class Kardex implements Serializable{
     private int statusStudent;
     @ManyToOne
     @JoinColumn( name = "idCarrer")
-    private  Carrer idCarrer;    
+    private  Carrer idCarrer;  
+    
+
 }

@@ -30,16 +30,18 @@
                         <li class="nav-item px-2">
                             <a th:href="@{/}" class="nav-link active" th:text="#{barra.titulo}">Inicio</a>
                         </li>
-                    </ul>
-                    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <form method="post" th:action="@{/logout}">
-                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                    <i class=fas faa-user-times></i>[[#{barra.salir}]]
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
+                    </ul> 
+                    <div th:if="${administrators != null and !administrators.empty}">
+                        <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <form method="post" th:action="@{/logout}">
+                                    <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                        <i class=fas faa-user-times></i>[[#{barra.salir}]]
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             </div>

@@ -1,4 +1,4 @@
-package com.canislupus.CanisLupus.Controller;
+package com.canislupus.CanisLupus.Controllers;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /* 

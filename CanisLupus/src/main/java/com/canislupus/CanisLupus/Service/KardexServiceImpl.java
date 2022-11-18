@@ -1,5 +1,8 @@
 package com.canislupus.CanisLupus.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.canislupus.CanisLupus.DAO.IKardexDAO;
@@ -14,15 +17,57 @@ public class KardexServiceImpl implements KardexService {
 
     @Override
     @Transactional(readOnly = true)
-    public Kardex encontrarKardex(Kardex kardex) {
-        // TODO Auto-generated method stub
-        return kardexDao.findByidKardex((Long)kardex.getStudent().getIdStudent());
+    public Kardex encontrarKardex(Long id) throws Exception {
+        return kardexDao.findById(id).orElse(null);
     }
+
     @Override
-    @Transactional(readOnly = true)
-    public Kardex guardarKardex(Kardex kardex) {
-        // TODO Auto-generated method stub
-        return kardexDao.save(kardex);
+    @Transactional
+    public Kardex guardarKardex(Kardex kardex) throws Exception {
+        try {
+            if(kardexDao.existsById(kardex.getIdKardex())){
+                return kardexDao.save(kardex);
+            }else{
+                throw new Exception();
+            }            
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        
     }
+
+    @Override
+    @Transactional
+    public Kardex actualizKardex(Kardex kardex) throws Exception {
+        try {
+            if(kardexDao.existsById(kardex.getIdKardex())){
+                return kardexDao.save(kardex);
+            }else{
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        
+    }
+
+    @Override
+    public boolean eliminarKardex(Long id) throws Exception {
+        try {
+            if(kardexDao.existsById(id)){
+                kardexDao.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        }
+        
+        
+    }
+
+ 
     
 }

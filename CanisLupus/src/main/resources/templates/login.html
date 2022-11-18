@@ -10,12 +10,9 @@
     <section id="actions" class="py-4 mb-4 bg-light">
         <div class="container">
             <div class="row">
-                <!--agregar botones-->
             </div>
         </div>
-    </section>
-    <Section th:replace="/tutors/agregarPupil"></Section>
-    
+    </section>    
     <section id="login">
         <div class="container">
             <div class="row">
@@ -25,6 +22,8 @@
                             <h4>Login</h4>
                         </div>
                         <div class="card-body">
+                            <div th:if="${param.error}">Invalid username and password.</div>
+                            <div th:if="${param.logout}">You have been logged out.</div>
                             <form method="post" th:action="@{/login}">
                                 <div class="form-group">
                                     <label for="username">Username: </label>
@@ -36,12 +35,23 @@
                                 </div>
                                 <input type="submit" value="Login" class="btn btn-primary btn-block" />
                             </form>
+                            <section id="actions" class="py-4 mb-4 bg-light">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <a th:href="@{/registry}" class="btn btn-dark">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.agregar}]]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section> 
+    </section>
 
 
     <footer th:replace="layout/plantilla :: footer"></footer>

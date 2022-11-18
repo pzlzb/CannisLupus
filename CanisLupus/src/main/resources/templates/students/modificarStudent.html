@@ -8,7 +8,34 @@
 
 <body>
     <header th:replace="layout/plantilla :: header"></header>
-    <section th:replace="tutors/editarTutor :: editarTutor"></section>
+
+    <h2>[[#{administrator.formulario}]]</h2>
+    <a th:href="@{/}">[[#{accion.regresar}]]</a>
+    <br/>
+    <form th:action="@{/guardar}" method="post" th:object="${administrator}"> <!--th relaciona lo que se cree en un objeto de tipo padministrator-->
+        <input type="hidden" name="idStudent" th:field="*{idStudent}"/>
+        <br/>
+        <label for="studentName">Nnombre</label>
+        <input type="text" name="studentName" th:field="*{studentName}"/><!--aspociar los atributos se utiliza th:field y agregar * para seleccionar el atributp-->
+        <span th:if="${#fields.hasErrors('adminName')}"  th:errors="*{adminName}">Error del nombre</span>
+        <br/>         
+        <label for="studentLastName">Apellido</label>
+        <input type="text" name="studentLastName" th:field="*{studentLastName}"/>
+        <span th:if="${#fields.hasErrors('studentLastName')}"  th:errors="*{studentLastName}">Error del apellido</span>
+        <br/>
+        <label for="studentEmail">Email</label>
+        <input type="email" name="studentEmail" th:field="*{studentEmail}"/>
+        <span th:if="${#fields.hasErrors('studentEmail')}"  th:errors="*{studentEmail}">Error email</span>
+        <br/>
+        <label for="studentPw">[[#{administrator.pw}]]</label>
+        <input type="password" name="studentPw" th:field="*{studentPw}"/>
+        <span th:if="${#fields.hasErrors('studentPw')}"  th:errors="*{studentPw}">Error en password</span>
+        <br/>
+        <input type="submit" name="guardar" th:value="#{accion.guardar}"/>
+    </form> 
+
+
+    
     <footer th:replace="layout/plantilla :: footer"></footer>
 </body>
 </html>

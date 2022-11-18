@@ -1,4 +1,4 @@
-package com.canislupus.CanisLupus.Controller;
+package com.canislupus.CanisLupus.Controllers;
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration//reconoce los archivos para el manejo de lenguajes messages_es y messages_en
 public class WebConfig implements WebMvcConfigurer{
+
     @Bean
     public LocaleResolver localeResolver(){
         var slr = new SessionLocaleResolver();
@@ -32,8 +33,8 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void  addViewControllers(ViewControllerRegistry registro){
-        //registro.addViewController("/").setViewName("index");
-        registro.addViewController("/login");//paths que no necesariamente pasan por el controlador
+        registro.addViewController("/").setViewName("index");
+        registro.addViewController("/login");
         registro.addViewController("/errores/403").setViewName("/errores/403");
     }
 }
