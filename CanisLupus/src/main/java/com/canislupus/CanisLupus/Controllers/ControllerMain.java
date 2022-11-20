@@ -100,7 +100,7 @@ public class ControllerMain {
         System.out.println("========================\n student:"+ student.toString()+"========================\n");
         System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
         //studentService.guardar(student);
-        kardex.setStudent(student);
+        //kardex.setStudent(student);
         //kardexService.guardarKardex(kardex);
         return "/login";
     }

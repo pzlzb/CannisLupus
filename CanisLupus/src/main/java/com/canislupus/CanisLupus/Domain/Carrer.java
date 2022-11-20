@@ -27,9 +27,5 @@ public class Carrer {
     private double minCredits;
     @ManyToOne
     @JoinColumn(name = "idFaculty")
-    private Faculties idFaculty;
-    // @ManyToOne
-    // @JoinColumn(name = "studentidUser")
-    // private Rol studentidUser;
-    
+    private Faculties idFaculty;    
 }

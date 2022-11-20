@@ -16,12 +16,10 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStudent;
 
-    // @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    // private Kardex kardex;
-    // @OneToOne
-    // @JoinColumn(name="idStudent")
-    // @MapsId
-    // private Kardex kardex;
+    //mappedBy indica el atributo que es dueño de la referencia de la otra tabla
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //@JoinColumn(name="idStudent")
+    private Kardex kardex;
 
     @NotEmpty
     private String studentName;
@@ -32,13 +30,61 @@ public class Student implements Serializable {
     @NotEmpty
     private String studentPw;
    
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idTutor")
     private Tutor studentidTutor;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUser")
     private Rol tudentidUser;
 
+
+
+
+
+
+
+
+
+
+
+
+    /*
+     * @Data
+@Entity
+@Table( name="students", uniqueConstraints = {@UniqueConstraint(columnNames = "studentEmail")                                               })
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idStudent;
+
+    //mappedBy indica el atributo que es dueño de la referencia de la otra tabla
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //@JoinColumn(name="idStudent")
+    private Kardex kardex;
+
+    @NotEmpty
+    private String studentName;
+    @NotEmpty
+    private String studentLastName;
+    @NotEmpty 
+    private String studentEmail;
+    @NotEmpty
+    private String studentPw;
+   
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idTutor")
+    private Tutor studentidTutor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUser")
+    private Rol tudentidUser;
+
+     */
+   
+    
+
+    
 
 //     [
 //   {

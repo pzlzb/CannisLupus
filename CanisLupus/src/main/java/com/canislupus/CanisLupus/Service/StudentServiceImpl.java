@@ -63,6 +63,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional(readOnly = true)
     public Student encontrarStudent(Long id) throws Exception{
         try {
+            System.out.println("SERVICIO STUDENT RECIBIENDO DE DATOS DE DAO: \n"+studentDao.findById(id).orElse(null).toString());
             return studentDao.findById(id).orElse(null);
         } catch (Exception e) {
             throw new Exception(e.getMessage());

@@ -33,7 +33,6 @@ public class KardexServiceImpl implements KardexService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        
     }
 
     @Override
@@ -48,7 +47,6 @@ public class KardexServiceImpl implements KardexService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        
     }
 
     @Override
@@ -61,13 +59,7 @@ public class KardexServiceImpl implements KardexService {
                 throw new Exception();
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            
-        }
-        
-        
-    }
-
- 
-    
+            throw new Exception(e.getMessage());   
+        }   
+    } 
 }
