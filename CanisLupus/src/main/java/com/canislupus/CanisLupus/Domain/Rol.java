@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 @Table(name="users")
 public class Rol implements Serializable{
     private static final long serialVersionUID =1L;
@@ -15,4 +15,9 @@ public class Rol implements Serializable{
     private Long idUser;
     @NotEmpty
     private String typeUser;
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+    
+    
 }

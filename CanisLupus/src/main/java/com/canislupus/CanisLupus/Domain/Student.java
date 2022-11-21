@@ -3,6 +3,9 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,10 +35,12 @@ public class Student implements Serializable {
    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idTutor")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Tutor studentidTutor;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUser")
-    private Rol tudentidUser;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Rol studentidUser;
 
 
 

@@ -3,6 +3,9 @@ import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -13,9 +16,10 @@ public class Kardex implements Serializable{
     
     @Id
     private Long idKardex;
-    @MapsId //("idKardex")
+   
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="idKardex")//idkardex es la propiedad que contendra la llave primaria/foranea
+    @MapsId //("idKardex")
     private Student student;
 
     @NotEmpty
@@ -34,6 +38,7 @@ public class Kardex implements Serializable{
     private int statusStudent;
     @ManyToOne
     @JoinColumn( name = "idCarrer")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private  Carrer idCarrer;  
 
 
