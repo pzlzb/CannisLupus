@@ -23,48 +23,47 @@ public class AdministratorServiceImpl implements AdministratorService{
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Administrator> listarAdministrators()  {
-        return (List<Administrator>) adminDao.findAll();
-    }
     // @Override
     // @Transactional(readOnly = true)
-    // public List<Administrator> listarAdministrators() throws Exception {
-    //     try {
-    //         return (List<Administrator>) adminDao.findAll();
-    //     } catch (Exception e) {
-    //         throw new Exception(e.getMessage());
-    //     }
+    // public List<Administrator> listarAdministrators()  {
+    //     return (List<Administrator>) adminDao.findAll();
     // }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Administrator> listarAdministrators() throws Exception {
+        try {
+            return  adminDao.findAll();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+  @Override
+    @Transactional//sin parametros, porque si va a modificar la db
+    public Administrator guardar(Administrator admin) throws Exception {
+        try {
+            if (!adminDao.existsById(admin.getIdAdmin())){//mATRICULA, FALTA VALIDAR EMAIL
+                String encodedPassword = bCryptPasswordEncoder.encode(admin.getAdminPw());
+                admin.setAdminPw(encodedPassword);
+                adminDao.save(admin);
+            return admin;
+            }else{
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+     
+    }
     // @Override
     // @Transactional//sin parametros, porque si va a modificar la db
     // public Administrator guardar(Administrator admin) throws Exception {
     //     try {
-    //         if (!adminDao.existsById(admin.getIdAdmin())){//mATRICULA, FALTA VALIDAR EMAIL
-    //             String encodedPassword = bCryptPasswordEncoder.encode(admin.getAdminPw());
-    //             admin.setAdminPw(encodedPassword);
-    //             adminDao.save(admin);
-    //         return admin;
-    //         }else{
-    //             throw new Exception();
-    //         }
+    //         return admin = adminDao.save(admin);
     //     } catch (Exception e) {
     //         throw new Exception(e.getMessage());
     //     }
-        
     // }
-    @Override
-    @Transactional//sin parametros, porque si va a modificar la db
-    public Administrator guardar(Administrator admin) throws Exception {
-        try {
-            return admin = adminDao.save(admin);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-        
-    }
     @Override
     @Transactional
     public Administrator actualizarAdmin(Long id, Administrator admin) throws Exception{
@@ -103,6 +102,4 @@ public class AdministratorServiceImpl implements AdministratorService{
             throw new Exception(e.getMessage());
         }
     }
-    
-    
 }

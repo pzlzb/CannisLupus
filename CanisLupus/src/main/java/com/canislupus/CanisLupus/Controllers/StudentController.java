@@ -37,7 +37,7 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try {
-            System.out.println("CONTROLADOR STUDENT RECIBIENDO DE DATOS DEL SERVICIO: \n"+studentService.encontrarStudent(id).toString());
+            System.out.println("CONTROLADOR STUDENT RECIBIENDO DE DATOS DEL SERVICIO: \n" + studentService.encontrarStudent(id));
             return ResponseEntity.status(HttpStatus.OK).body(studentService.encontrarStudent(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");

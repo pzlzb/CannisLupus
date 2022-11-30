@@ -6,14 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.canislupus.CanisLupus.DAO.IKardexDAO;
+import com.canislupus.CanisLupus.DAO.IStudentsDAO;
 import com.canislupus.CanisLupus.Domain.Kardex;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class KardexServiceImpl implements KardexService {
+    
     @Autowired
     private IKardexDAO kardexDao;
+    @Autowired
+    private IStudentsDAO studentDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -61,5 +65,13 @@ public class KardexServiceImpl implements KardexService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());   
         }   
-    } 
+    }
+
+    private IStudentsDAO iStudentsDAO;
+    private IKardexDAO iKardexDAO;
+
+    public KardexServiceImpl(IStudentsDAO iStudentsDAO, IKardexDAO iKardexDAO){
+       this.iStudentsDAO = iStudentsDAO;
+       this.iKardexDAO = iKardexDAO;
+    }
 }

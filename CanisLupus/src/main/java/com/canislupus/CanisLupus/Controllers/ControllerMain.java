@@ -44,7 +44,7 @@ public class ControllerMain {
     
 
     @GetMapping ("/")
-    public String inicio(Model model, @AuthenticationPrincipal User user){
+    public String inicio(Model model, @AuthenticationPrincipal User user) throws Exception{
         // private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
         //log.info("ejecutandose el controller SPRING MVC");
         //log.debug("mas detalle del controlador");

@@ -2,6 +2,7 @@ package com.canislupus.CanisLupus.Service;
 import java.util.List;
 import java.util.Optional;
 
+import com.canislupus.CanisLupus.DAO.IKardexDAO;
 import com.canislupus.CanisLupus.DAO.IStudentsDAO;
 import com.canislupus.CanisLupus.Domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class StudentServiceImpl implements StudentService {
     
     @Autowired
     private IStudentsDAO studentDao;
+    @Autowired
+    private IKardexDAO kardexDAO;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -32,11 +35,10 @@ public class StudentServiceImpl implements StudentService {
                 String encodedPassword = bCryptPasswordEncoder.encode(student.getStudentPw());
                 student.setStudentPw(encodedPassword);
                 studentDao.save(student);
-            return student;
-        }else{
-            throw new Exception();
-        }
-            
+                return student;
+            }else{
+                throw new Exception();
+            }
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -63,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional(readOnly = true)
     public Student encontrarStudent(Long id) throws Exception{
         try {
-            System.out.println("SERVICIO STUDENT RECIBIENDO DE DATOS DE DAO: \n"+studentDao.findById(id).orElse(null).toString());
+            //System.out.println("SERVICIO STUDENT RECIBIENDO DE DATOS DE DAO: \n"+studentDao.findById(id).orElse(null).toString());
             return studentDao.findById(id).orElse(null);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -82,13 +84,13 @@ public class StudentServiceImpl implements StudentService {
     public Student actualizarStudent(Long id, Student student) throws Exception{
         try {
             Optional<Student> studentAux = studentDao.findById(id);//error si no encuentra ese id
+            Student a = studentAux.get();
+            a=student;
             student.setIdStudent(id);
-            return studentDao.save(student);
+            return studentDao.save(a);
             //System.out.println("se encontro user en DAO: XD");
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-    }
-
-    
+    }   
 }
