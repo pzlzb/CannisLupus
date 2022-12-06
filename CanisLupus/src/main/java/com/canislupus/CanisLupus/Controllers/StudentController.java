@@ -90,20 +90,7 @@ public class StudentController {
         aux = studentService.encontrarStudent(pupil.getIdStudent());
         model.addAttribute("pupil", aux);// mismo nombre que la variable del archivo .html ue recibe el modelo
         return "/tutors/modificarPupil";
-    }
-    @GetMapping("/encontrarStudent/{id}")
-    public ResponseEntity<?>  encontrarStudent(@PathVariable Long id){
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.encontrarStudent(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
-        }
-    }
-    
-    
-    
-    
-    
+    }    
     */
     
     

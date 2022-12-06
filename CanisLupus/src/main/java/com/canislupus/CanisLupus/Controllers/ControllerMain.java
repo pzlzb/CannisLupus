@@ -3,6 +3,8 @@ import com.canislupus.CanisLupus.Domain.*;
 import com.canislupus.CanisLupus.Service.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class ControllerMain {
     private KardexService kardexService;
     @Autowired
     private CarrerService carrerService;
+    @Autowired
+    private RolService rolService;
     
 
     @GetMapping ("/")
@@ -87,19 +91,22 @@ public class ControllerMain {
     }
 
      @PostMapping("/registry")
-     public String registrar(@Valid Student student, @Valid Kardex kardex, Errors errores){
-        System.out.println("student: "+ student);
-        System.out.println("kardex: "+ kardex);
+     public String registrar(@Valid Student student,  Errors errores){
         if(errores.hasErrors()){
             System.out.println("========================VALIDATION-ERRORS REGISTRY========================\n");
             System.out.println("========================\n student:"+ student.toString()+"========================\n");
-            System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
+            //System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
             return "tutors/modificarStudent";
         }
         System.out.println("========================VALIDATION REGISTRY========================\n");
         System.out.println("========================\n student:"+ student.toString()+"========================\n");
-        System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
-        //studentService.guardar(student);
+        //System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
+        try {
+            studentService.guardar(student);
+        } catch (Exception e) {
+            new Exception(e.getMessage());
+        }
+        
         //kardex.setStudent(student);
         //kardexService.guardarKardex(kardex);
         return "/login";
@@ -109,17 +116,19 @@ public class ControllerMain {
     public String registrar(Model model){
         var tutors = tutorService.listarTutors();
         var carrers = carrerService.listarCarreras();
+        var users = rolService.encontrarRol(4L);
         model.addAttribute("tutors", tutors);
         model.addAttribute("carrers",carrers);
+        model.addAttribute("users", users);
         return "registry";
     }
     
-    @GetMapping("/reg")
-    public ResponseEntity<?> getAll(){
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(carrerService.listarCarreras());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
-        }
-    }
+    // @GetMapping("/reg")
+    // public ResponseEntity<?> getAll(){
+    //     try {
+    //         return ResponseEntity.status(HttpStatus.OK).body(carrerService.listarCarreras());
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
+    //     }
+    // }
 }

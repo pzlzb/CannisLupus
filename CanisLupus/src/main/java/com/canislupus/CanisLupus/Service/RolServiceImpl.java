@@ -102,7 +102,7 @@ public class RolServiceImpl implements RolService, UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public Rol encontrarRol(Rol rol) {
-        return rolDao.findById((Long)rol.getIdUser()).orElse(null);
+    public Rol encontrarRol(Long id) {
+        return rolDao.findById(id).orElse(null);
     } 
 } 

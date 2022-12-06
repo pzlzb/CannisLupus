@@ -9,5 +9,10 @@ public interface StudentService {
     public Student encontrarStudent(Long id) throws Exception;
     public Student encontrarStudent(String username) throws Exception;
     public Student actualizarStudent(Long id, Student student) throws Exception;
-    
+    public void generarRutaCritica() throws Exception;
+    public void verReprobadas(Student student) throws Exception;
+    public void verCursando(Student student) throws Exception;
+    public void verAcreditadas(Student student) throws Exception;
+    public void verNoCursadas(Student student) throws Exception;
+    public void verDatos(Student student) throws Exception;
 }

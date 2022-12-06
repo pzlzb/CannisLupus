@@ -25,7 +25,4 @@ public class Rol implements Serializable{
     private Long idUser;
     @NotEmpty
     private String typeUser;
-    // public static long getSerialversionuid() {
-    //     return serialVersionUID;
-    // }
 }

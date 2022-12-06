@@ -3,6 +3,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -25,7 +28,8 @@ public class Administrator implements Serializable{
     @NotEmpty
     private String adminPw;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch =FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "adminIdUser")
     private Rol adminIdUser;
     //The notation lombok.Data; creates constructors, setters, getters and toString   

@@ -2,6 +2,7 @@ package com.canislupus.CanisLupus.Service;
 import java.util.ArrayList;
 import java.util.List;
 import com.canislupus.CanisLupus.DAO.ITutorsDAO;
+import com.canislupus.CanisLupus.Domain.Student;
 import com.canislupus.CanisLupus.Domain.Tutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,15 +62,54 @@ public class TutorServiceImpl implements TutorService, UserDetailsService{
     @Override
     @Transactional
     public void eliminar(Tutor tutor) {
-        // TODO Auto-generated method stub
         tutorDao.delete(tutor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Tutor encontrarTutor(Tutor tutor) {
-        // TODO Auto-generated method stub
         return tutorDao.findById((Long)tutor.getIdTutor()).orElse
         (null);
+    }
+
+
+    @Override
+    public void listarStudents() {
+    }
+
+
+    @Override
+    public Student actualizarStudent(Long id, Student student) throws Exception {
+        return null;
+    }
+
+
+    @Override
+    public void generarRutaCritica() throws Exception {
+    }
+
+
+    @Override
+    public void verReprobadas(Student student) throws Exception {
+    }
+
+
+    @Override
+    public void verCursando(Student student) throws Exception {
+    }
+
+
+    @Override
+    public void verAcreditadas(Student student) throws Exception {
+    }
+
+
+    @Override
+    public void verNoCursadas(Student student) throws Exception {
+    }
+
+
+    @Override
+    public void verDatos(Student student) throws Exception {
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,7 +29,8 @@ public class Tutor implements Serializable {
     private String tutorName;
     @NotEmpty
     private String tutorLastName;
-    @NotEmpty 
+    @NotEmpty
+    //@Pattern(regexp = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$", message = "INVALID_DATE_FORMAT")
     private String tutorEmail;
     @NotEmpty
     private String tutorPw;
@@ -52,7 +53,6 @@ public class Tutor implements Serializable {
         this.tutorIdUser = tutorIdUser;
     }
     public Tutor(){}
-    
 }
  
 

@@ -6,14 +6,14 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
+//https://github.com/vladmihalcea
 @Entity(name = "Student")
 @Table( name="students", uniqueConstraints = {@UniqueConstraint(columnNames = "studentEmail")})
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idStudent")
     private Long idStudent;
 
@@ -22,6 +22,7 @@ public class Student implements Serializable {
     //@OneToOne
     //@PrimaryKeyJoinColumn
     //@JoinColumn(name="idStudent")
+    //@JsonIgnore
     //private Kardex kardex;
 
     @NotEmpty
@@ -41,18 +42,18 @@ public class Student implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Rol studentidUser;
+    private Rol idUser;
 
     
     public Student(Long idStudent, @NotEmpty String studentName, @NotEmpty String studentLastName,
-            @NotEmpty String studentEmail, @NotEmpty String studentPw, Tutor studentidTutor, Rol studentidUser) {
+            @NotEmpty String studentEmail, @NotEmpty String studentPw, Tutor studentidTutor, Rol idUser) {
         this.idStudent = idStudent;
         this.studentName = studentName;
         this.studentLastName = studentLastName;
         this.studentEmail = studentEmail;
         this.studentPw = studentPw;
         this.studentidTutor = studentidTutor;
-        this.studentidUser = studentidUser;
+        this.idUser = idUser;
     }
 
     public Student(){}
@@ -124,18 +125,18 @@ public class Student implements Serializable {
     public void setStudentidTutor(Tutor studentidTutor) {
         this.studentidTutor = studentidTutor;
     }
-    public Rol getStudentidUser() {
-        return studentidUser;
+    public Rol getidUser() {
+        return idUser;
     }
-    public void setStudentidUser(Rol studentidUser) {
-        this.studentidUser = studentidUser;
+    public void setidUser(Rol idUser) {
+        this.idUser = idUser;
     }
 
     @Override
     public String toString() {
         return "Student [idStudent=" + idStudent + ", studentName=" + studentName
                 + ", studentLastName=" + studentLastName + ", studentEmail=" + studentEmail + ", studentPw=" + studentPw
-                + ", studentidTutor=" + studentidTutor + ", studentidUser=" + studentidUser + "]";
+                + ", studentidTutor=" + studentidTutor + ", idUser=" + idUser + "]";
     }
 
     

@@ -9,7 +9,7 @@
 
     <section th:fragment="guardarPupil">
         <form th:object="${student}" th:action="@{/registry}" method="post" class="was-validated"><!-- th relaciona lo que se cree en un objeto de tipo student-->
-            <input type="hidden" name="idStudent" /> <!--acceder al atributo de tipo id_ -->
+            <!-- <input type="hidden" name="idStudent" />acceder al atributo de tipo id_ -->
             <!--<section th:replace="tutors/botonesEditarPupil :: botonesEditarPupil"></section>-->
             <div id="details">
                 <div class="container">
@@ -20,10 +20,10 @@
                                      <h4> [[#{accion.guardar}]]</h4>
                                  </div>
                                     <div class="card-body">
-                                        <!-- <div class="form-group"> 
+                                        <div class="form-group"> 
                                             <label for="idStudent">[[#{actor.enrollment}]]</label>
                                             <input type="number" class="form-control" name="idStudent" required="true" />
-                                        </div> -->
+                                        </div>
                                         <div class="form-group">
                                             <label for="studentName">[[#{actor.name}]]</label>
                                             <input type="text" class="form-control" name="studentName" required="true" />
@@ -40,23 +40,39 @@
                                             <label for="studentPw">[[#{actor.pw}]]</label>
                                             <input type="password" class="form-control" name="studentPw" required="true" />
                                         </div>
-                                        <div class="list-group"><!-- LIST OF CARRERS -->
+                                        <div class="list-group">LIST OF CARRERS 
                                             <label for="carrers">[[#{actor.id_carrer}]]</label>
                                             <select id="carrers" name="carrers" class="form-select" aria-label="Default select example">
-                                                <option required="true" th:each="carrers : ${carrers}" th:value="${carrers.idCarrer}"  >[[${carrers.carrerName}]]</option> <!---->
+                                                <option required="true" th:each="carrers : ${carrers}" th:value="${carrers.idCarrer}"  >[[${carrers.carrerName}]]</option> 
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="beginningP">[[#{actor.beginning}]]</label>
                                             <input type="date"  class="form-control" name="beginningP" required="true" />
-                                        </div>
+                                        </div> -->
+
                                         <div class="list-group"><!-- LIST OF TUTORS -->
                                             <label for="tutor">[[#{accion.agregar}]]</label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option required="true" th:each="tutors : ${tutors}" value="${tutors.idTutor}">[[${tutors.tutorName}+' '+${tutors.tutorLastName}]]</option>
+                                            <select class="form-control selectpicker"  th:name="studentidTutor" id="tutor" autocomplete="on" requiered aria-label="Default select example">
+                                                <option selected="selected" value="">seleccionar</option>
+                                                <option th:each="tutor : ${tutors}" 
+                                                th:value="${tutor.idTutor}"
+                                                th:text="${tutor.tutorName}+' '+${tutor.tutorLastName}"
+                                                 required="true"></option>
                                             </select>
                                         </div>
-                                        <input type="submit" value="registry" class="btn btn-primary btn-block" />
+                                        <div class="list-group"><!-- USERS STUDENT -->
+                                            <label for="user">[[#{accion.agregar}]]</label>
+                                            <select class="form-control selectpicker"  th:name="idUser" id="user" autocomplete="on" requiered aria-label="Default select example">
+                                                <option selected="selected" value="">seleccionar</option>
+                                                <option th:each="user : ${users}" 
+                                                th:value="${user.idUser}"
+                                                th:text="${user.idUser}+' '+${user.typeUser}"
+                                                 required="true"></option>
+                                            </select>
+                                        </div>
+                                       
+                                    <input type="submit" value="registry" class="btn btn-primary btn-block" />
                                  </div>
                             </div>
                         </div>

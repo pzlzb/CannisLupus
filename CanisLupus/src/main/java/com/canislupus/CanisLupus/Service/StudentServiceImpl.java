@@ -87,10 +87,35 @@ public class StudentServiceImpl implements StudentService {
             Student a = studentAux.get();
             a=student;
             student.setIdStudent(id);
+            a.setStudentPw(bCryptPasswordEncoder.encode(a.getStudentPw()));
             return studentDao.save(a);
             //System.out.println("se encontro user en DAO: XD");
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-    }   
+    }
+
+    @Override
+    public void generarRutaCritica() throws Exception {        
+    }
+
+    @Override
+    public void verReprobadas(Student student) throws Exception {        
+    }
+
+    @Override
+    public void verCursando(Student student) throws Exception {        
+    }
+
+    @Override
+    public void verAcreditadas(Student student) throws Exception {        
+    }
+
+    @Override
+    public void verNoCursadas(Student student) throws Exception {        
+    }
+
+    @Override
+    public void verDatos(Student student) throws Exception {
+    }
 }

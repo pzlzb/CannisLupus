@@ -2,6 +2,8 @@ package com.canislupus.CanisLupus.Domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -25,7 +27,8 @@ public class Carrer {
     private Double maxCredits;
     @NotEmpty
     private double minCredits;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "idFaculty")
     private Faculties idFaculty;    
 }

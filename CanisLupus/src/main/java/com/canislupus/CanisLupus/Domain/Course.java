@@ -7,8 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -29,7 +31,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "courses")
 public class Course extends Padre{
-
     
     @NotEmpty
     private String ssName;
@@ -42,7 +43,7 @@ public class Course extends Padre{
     @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idCarrer")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Carrer idCarrer;
+    private Carrer carrer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idArea")
@@ -52,8 +53,5 @@ public class Course extends Padre{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idOptional")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Optionalx optional;
-
-    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<Kardex> kardexs = new ArrayList<Kardex>();
+    private Optionalx optionals;
 }
