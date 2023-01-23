@@ -46,6 +46,7 @@ public class ControllerMain {
     @Autowired
     private RolService rolService;
     
+    
 
     @GetMapping ("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) throws Exception{
@@ -59,7 +60,7 @@ public class ControllerMain {
         if(u.equals("ROLE_ADMINISTRATOR")){//ADMINISTRATORS
             System.out.println("*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#\n*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#0000");
             System.out.println("Controlador: imprimiendo lista de ADMINISTRATORS-->\n");
-            var admins = adminService.listarAdministrators();
+            var admins = adminService.findAll();
             System.out.println(admins.toString());
             model.addAttribute("administrators", admins);
         }else 
@@ -70,7 +71,7 @@ public class ControllerMain {
             var tutors = tutorService.listarTutors();
             System.out.println(tutors.toString());
             model.addAttribute("tutors", tutors);
-            var students = studentService.listarPupils();
+            var students = studentService.findAll();
             model.addAttribute("students", students);
         }else
 
@@ -79,7 +80,7 @@ public class ControllerMain {
             System.out.println("Controlador: imprimiendo STUDENT-->\n");
             Student student;
             try {
-                student = studentService.encontrarStudent(user.getUsername());
+                student = studentService.findByUsername(user.getUsername());
                 System.out.println(student.toString());
             } catch (Exception e) {
                 student=null;//new Student();
@@ -91,25 +92,41 @@ public class ControllerMain {
     }
 
      @PostMapping("/registry")
-     public String registrar(@Valid Student student,  Errors errores){
+     public String registrar( @Valid Student student, Long idcarrer, Errors errores) throws Exception{//@Valid Student student
+        Student savedStudent =  new Student();
+        System.out.println("id carrer"+idcarrer);
         if(errores.hasErrors()){
-            System.out.println("========================VALIDATION-ERRORS REGISTRY========================\n");
-            System.out.println("========================\n student:"+ student.toString()+"========================\n");
-            //System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
+            System.out.println("===VALIDATION-ERRORS REGISTRY===");
+            System.out.println("===\n student:"+ student.toString()+"===");
             return "tutors/modificarStudent";
+        }else{
+            System.out.println("===VALIDATION REGISTRY===\n");
+            System.out.println("===\n"+ student.toString()+"\n===");
+            try {
+                savedStudent = studentService.save(student);
+            } catch (Exception e) {
+                new Exception(e.getMessage());
+            }
+            Kardex kardex = new Kardex();
+            Kardex savedKardex = new Kardex();
+            Carrer carrer = new Carrer();
+            try {
+                //savedStudent = studentService.findById(student.getIdStudent());
+                System.out.println(savedStudent);
+                carrer = carrerService.encontrarCarreras(idcarrer);
+                System.out.println(carrer);
+                kardex.setIdCarrer(carrer);
+                System.out.println(kardex);
+                kardex.setIdKardex(savedStudent.getIdStudent());
+                System.out.println(kardex);
+                kardex.setStudent(savedStudent);
+                System.out.println(kardex);
+                savedKardex = kardexService.save(kardex);
+            } catch (Exception e) {
+                new Exception(e.getMessage());
+            }
         }
-        System.out.println("========================VALIDATION REGISTRY========================\n");
-        System.out.println("========================\n student:"+ student.toString()+"========================\n");
-        //System.out.println("========================\n kardex:"+ kardex.toString()+"========================\n");
-        try {
-            studentService.guardar(student);
-        } catch (Exception e) {
-            new Exception(e.getMessage());
-        }
-        
-        //kardex.setStudent(student);
-        //kardexService.guardarKardex(kardex);
-        return "/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/registry")
@@ -117,18 +134,11 @@ public class ControllerMain {
         var tutors = tutorService.listarTutors();
         var carrers = carrerService.listarCarreras();
         var users = rolService.encontrarRol(4L);
+        var kardex = new Kardex();
+        var student = new Student();
         model.addAttribute("tutors", tutors);
         model.addAttribute("carrers",carrers);
         model.addAttribute("users", users);
         return "registry";
     }
-    
-    // @GetMapping("/reg")
-    // public ResponseEntity<?> getAll(){
-    //     try {
-    //         return ResponseEntity.status(HttpStatus.OK).body(carrerService.listarCarreras());
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
-    //     }
-    // }
 }

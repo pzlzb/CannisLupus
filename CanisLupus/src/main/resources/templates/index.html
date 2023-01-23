@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--como se va a llamar thymeleaf-->
 
-<head th:replace="layout/plantilla :: head">
+<head th:replace="~{layout/plantilla :: head}">
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inicio</title>
@@ -10,26 +9,65 @@
 
 <body>
 
-    <header th:replace="layout/plantilla :: header"></header>
+    <header th:replace="~{layout/plantilla :: header}"></header>
     <!--STUDENTS-->
     <div sec:authorize="hasRole('ROLE_STUDENT')">
-        <section th:replace="students/botonesAgregar :: botonesAgregar"></section>
-        <section th:replace="students/agregarAdministrator :: agregarAdministrator"></section>
-        <section th:replace="students/listadoAdministradores :: listadoAdministradores"></section>
-        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
-        <section th:replace="tutors/agregarTutor :: agregarTutor"></section>
-        <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
+        <!--list students-->
+        <!--findByName, findById, findByUsername student -->
+        <!--update kardex-->
+        <!--update courses, average-->
+        <!--update student-->
+        <!--delete student-->
+        <!--update password-->
+        <!--see reprobadas-->
+        <!--see aprobadas-->
+        <!--see recursadas, attempts-->
+        <!--see sin cursar-->
+        <!--see information: average, beginning, end, periods-->
+        <!--see critical path method-->
+        <!--  -->
+        <!--Logout-->
     </div>
 
     <!--TUTORS-->
     <div sec:authorize="hasRole('ROLE_TUTOR')">
-        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section>
+        <!--list students-->
+        <!--findByName, findById, findByUsername student  -->
+        <!--add student-->
+        <!--update student-->
+        <!--delete student-->
+        <!--update password-->       
+        <!--Logout-->
+        <!--  -->        
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <section th:replace="tutors/botonesAgregar :: botonesAgregar"></section> 
         <section th:replace="tutors/agregarPupil :: agregarPupil"></section>
         <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
     </div>
 
     <!--ADMINISTRATORS-->
     <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+        
+        <!--list tutors-->
+        <!--findByName, findById, findByUsername tutor-->
+        <!--add tutor-->
+        <!--add administrator-->
+        <!--update tutor-->
+        <!--update administrator-->
+        <!--delete tutor-->
+        <!--delete administrator-->
+        <!--update password-->
+        <!--Logout-->
+        <!--  -->
+        <!--  -->        
+        <!--  -->
+        <!--  -->
         <section th:replace="administrators/botonesAgregar :: botonesAgregar"></section>
         <section th:replace="administrators/agregarAdministrator :: agregarAdministrator"></section>
         <section th:replace="administrators/listadoAdministradores :: listadoAdministradores"></section>
@@ -38,8 +76,6 @@
         <section th:replace="tutors/listadoPupils :: listadoPupils"></section>
     </div>
 
-    
-
-    <footer th:replace="layout/plantilla :: footer"></footer>
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
 </body>
 </html>

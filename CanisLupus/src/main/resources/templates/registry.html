@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="layout/plantilla :: head">
+<head th:replace="~{layout/plantilla :: head}">
 <title>Registro</title>
 <body>
-    <header th:replace="/layout/plantilla :: header"></header>
+    <header th:replace="~{/layout/plantilla :: header}"></header>
     
 
     <section th:fragment="guardarPupil">
@@ -40,20 +40,9 @@
                                             <label for="studentPw">[[#{actor.pw}]]</label>
                                             <input type="password" class="form-control" name="studentPw" required="true" />
                                         </div>
-                                        <div class="list-group">LIST OF CARRERS 
-                                            <label for="carrers">[[#{actor.id_carrer}]]</label>
-                                            <select id="carrers" name="carrers" class="form-select" aria-label="Default select example">
-                                                <option required="true" th:each="carrers : ${carrers}" th:value="${carrers.idCarrer}"  >[[${carrers.carrerName}]]</option> 
-                                            </select>
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <label for="beginningP">[[#{actor.beginning}]]</label>
-                                            <input type="date"  class="form-control" name="beginningP" required="true" />
-                                        </div> -->
-
                                         <div class="list-group"><!-- LIST OF TUTORS -->
                                             <label for="tutor">[[#{accion.agregar}]]</label>
-                                            <select class="form-control selectpicker"  th:name="studentidTutor" id="tutor" autocomplete="on" requiered aria-label="Default select example">
+                                            <select class="form-control selectpicker"th:name="studentidTutor" id="tutor" autocomplete="on"  aria-label="Default select example">
                                                 <option selected="selected" value="">seleccionar</option>
                                                 <option th:each="tutor : ${tutors}" 
                                                 th:value="${tutor.idTutor}"
@@ -71,7 +60,21 @@
                                                  required="true"></option>
                                             </select>
                                         </div>
-                                       
+                                        <div class="list-group"><!-- LIST OF CARRERS -->
+                                            <label for="carrer">[[#{accion.agregar}]]</label>
+                                            <select class="form-control selectpicker"  th:name="idcarrer" id="carrer" autocomplete="on" requiered aria-label="Default select example">
+                                                <option selected="selected" value="">seleccionar</option>
+                                                <option th:each="carrer : ${carrers}"
+                                                th:value="${carrer.idCarrer}"
+                                                th:text="${carrer.carrerName}"
+                                                 required="true"></option>
+                                            </select>
+                                        </div>
+                                            <!-- <div class="form-group">
+                                                <label for="beginningP">[[#{actor.beginning}]]</label>
+                                                <input type="date"  class="form-control" name="beginningP"  th:class="${#fields.hasErrors('dateField')}? fieldError" required="true" />
+                                            </div> -->
+                                        </div>
                                     <input type="submit" value="registry" class="btn btn-primary btn-block" />
                                  </div>
                             </div>
@@ -82,7 +85,7 @@
         </form> 
     </section>
 
-    <footer th:replace="layout/plantilla :: footer"></footer>
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
 
 </body>
 </html>s

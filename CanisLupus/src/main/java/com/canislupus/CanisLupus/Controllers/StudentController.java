@@ -3,19 +3,11 @@ package com.canislupus.CanisLupus.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.canislupus.CanisLupus.Domain.Kardex_Course2;
 import com.canislupus.CanisLupus.Domain.Student;
 import com.canislupus.CanisLupus.Service.StudentService;
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -25,10 +17,11 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("")
+    @GetMapping(value = "")
     public ResponseEntity<?> getAll(){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.listarPupils());
+            System.out.println("CONTROLADOR STUDENT RECIBIENDO DE DATOS DEL SERVICIO: \n" + studentService.findAll());
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.findAll());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -37,8 +30,8 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try {
-            System.out.println("CONTROLADOR STUDENT RECIBIENDO DE DATOS DEL SERVICIO: \n" + studentService.encontrarStudent(id));
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.encontrarStudent(id));
+            System.out.println("CONTROLADOR STUDENT RECIBIENDO DE DATOS DEL SERVICIO: \n" + studentService.findById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.findById(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -47,7 +40,7 @@ public class StudentController {
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Student student){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.guardar(student));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.save(student));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"No se pudo guardar al estudiante.\"}");
         }
@@ -56,7 +49,7 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Student student){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.actualizarStudent(id, student));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.update(id, student));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"No se encontro al estudiante (?).\"}");
         }
@@ -65,37 +58,23 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentService.eliminar(id));
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentService.delete(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"No se encontro estudiante.\"}");
         }
-    }/*
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&PUPIL´S LINKS&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    @PostMapping("/guardarPupil")
-    public String guardar (@RequestBody @Valid Student student, Errors errores){//Indicar que el objeto se va validar, el cual se llena en el fomrulario y si hay errores se dbe pasar el parametro para concer el tipo de error
-        if (errores.hasErrors()){
-            System.out.println("sssssssssssssssssssssssssssssss"+student.toString()+"sssssssssssssssssssssssssssssss");
-            return "students/modificarStudent";
-        } 
-        System.out.println(student.getClass());
-        //student.getKardex().setBegginningP();;
-        student.getStudentidTutor();
-        System.out.println("GUARDAR: sssssssssssssssssssssssssssssss"+student+"sssssssssssssssssssssssssssssss");
-        studentService.guardar(student);
-        return "redirect:/";
-    
-    @GetMapping ("/editarPupil/{id_pupil}")
-    public String editar(Student pupil, Model model){
-        Student aux;
-        aux = studentService.encontrarStudent(pupil.getIdStudent());
-        model.addAttribute("pupil", aux);// mismo nombre que la variable del archivo .html ue recibe el modelo
-        return "/tutors/modificarPupil";
-    }    
-    */
-    
-    
+    }
+
+    @GetMapping("/reprobadas/{id}")
+    public ResponseEntity<?> seeReprobadas(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.verReprobadas(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"No se encontro estudiante.\"}");
+        }
+        //validadciones
+        //1) existe el alumno pero no tiene reprobadas
+        //2) No existe el alumno
+        // 3) existe el alumno pero no el kardex
+        //4) existe el kardex pero no el aluno
+    }
 }
-
-
-
-

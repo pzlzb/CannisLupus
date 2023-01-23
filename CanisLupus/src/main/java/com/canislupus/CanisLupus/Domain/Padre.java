@@ -2,7 +2,7 @@ package com.canislupus.CanisLupus.Domain;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -62,8 +62,8 @@ public abstract class PadreServiceImpl <E extends Padre, ID extends Serializable
             if (!padreRepository.existsById((ID)entity.getId())){//MATRICULA, FALTA VALIDAR EMAIL
                 //String encodedPassword = bCryptPasswordEncoder.encode(entity.getStudentPw());
                 //entity.setStudentPw(encodedPassword);
-                padreRepository.save(entity);
-                return entity;
+                return padreRepository.save(entity);
+                //return entity;
             }else{
                 throw new Exception();
             }

@@ -2,8 +2,8 @@ package com.canislupus.CanisLupus.Domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Generated;
-import javax.persistence.*;
+import jakarta.annotation.Generated;
+import jakarta.persistence.*;
 import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

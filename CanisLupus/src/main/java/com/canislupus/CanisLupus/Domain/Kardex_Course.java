@@ -1,17 +1,14 @@
-package com.canislupus.CanisLupus.Domain;
+/*package com.canislupus.CanisLupus.Domain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.security.authentication.ProviderManager;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,11 +20,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity(name = "Kardex_Course")
 @Table(name = "kardex_course")
-public class Kardex_Course extends Padre {
+public class Kardex_Course implements Serializable {
+
     @NotEmpty
     private Double graduate;
     @NotEmpty
-    
     private Integer period;
     @NotEmpty
     private Integer attempts;
@@ -41,4 +38,6 @@ public class Kardex_Course extends Padre {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "idCourse")
     private Course course;
-}
+
+    //SELECT * FROM kardex_course WHERE idKardex=idKardex;
+}*/

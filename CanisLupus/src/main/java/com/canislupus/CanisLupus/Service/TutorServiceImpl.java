@@ -67,9 +67,8 @@ public class TutorServiceImpl implements TutorService, UserDetailsService{
 
     @Override
     @Transactional(readOnly = true)
-    public Tutor encontrarTutor(Tutor tutor) {
-        return tutorDao.findById((Long)tutor.getIdTutor()).orElse
-        (null);
+    public Tutor encontrarTutor(Long idTutor) {
+        return tutorDao.findById(idTutor).orElse(null);
     }
 
 

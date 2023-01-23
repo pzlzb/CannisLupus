@@ -1,6 +1,6 @@
 package com.canislupus.CanisLupus.Domain;
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 

@@ -1,21 +1,21 @@
 package com.canislupus.CanisLupus.Domain;
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Data
 @ToString
+@EqualsAndHashCode
+
+@Entity
 @Table(name="users")
 public class Rol implements Serializable{
     private static final long serialVersionUID =1L;

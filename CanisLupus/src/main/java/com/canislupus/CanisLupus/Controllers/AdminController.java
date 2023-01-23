@@ -30,7 +30,7 @@ public class AdminController {
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(adminService.listarAdministrators());
+            return ResponseEntity.status(HttpStatus.OK).body(adminService.findAll());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -39,7 +39,7 @@ public class AdminController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(adminService.encontrarAdmin(id));
+            return ResponseEntity.status(HttpStatus.OK).body(adminService.findById(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -48,7 +48,7 @@ public class AdminController {
     @PostMapping("")
     public ResponseEntity<?> guardar(@RequestBody Administrator admin){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(adminService.guardar(admin));
+            return ResponseEntity.status(HttpStatus.OK).body(adminService.save(admin));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -57,7 +57,7 @@ public class AdminController {
     @PutMapping("/{id}")//no funciona aun modificar a query update
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Administrator admin){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(adminService.actualizarAdmin(id, admin));
+            return ResponseEntity.status(HttpStatus.OK).body(adminService.update(id, admin));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"error por favor intente más tarde.\"}");
         }
@@ -66,7 +66,7 @@ public class AdminController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.eliminar(id));
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.delete(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"error por favor intente más tarde.\"}");
         }

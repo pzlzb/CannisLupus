@@ -1,31 +1,39 @@
 package com.canislupus.CanisLupus.Domain;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name= "carrers")
 public class Carrer {
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCarrer;
     @NotEmpty
     private String carrerName;
-    @NotEmpty
+    //@NotEmpty
     private String code;
-    @NotEmpty
+    //@NotEmpty
     private Integer maxTime;
-    @NotEmpty
+    //@NotEmpty
     private Integer minTime;
-    @NotEmpty
+    //@NotEmpty
     private Double maxCredits;
-    @NotEmpty
+    //@NotEmpty
     private double minCredits;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

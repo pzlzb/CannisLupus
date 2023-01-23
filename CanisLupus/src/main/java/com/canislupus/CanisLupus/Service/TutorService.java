@@ -8,7 +8,7 @@ public interface TutorService {
     public List<Tutor> listarTutors();
     public void guardar(Tutor tutor);
     public void eliminar(Tutor tutor);
-    public Tutor encontrarTutor(Tutor tutor);
+    public Tutor encontrarTutor(Long idTutor);
     public void listarStudents();
     public Student actualizarStudent(Long id, Student student) throws Exception;
     public void generarRutaCritica() throws Exception;

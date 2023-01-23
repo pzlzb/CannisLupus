@@ -2,20 +2,18 @@ package com.canislupus.CanisLupus.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+//https://stackoverflow.com/questions/41480102/how-spring-security-filter-chain-works
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{//WebSecurityConfigurerAdapter
+public class SecurityConfig  {//WebSecurityConfigurerAdapter
 
     @Autowired
     private UserDetailsService userDetailsService;    
@@ -29,23 +27,57 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{//WebSecurityCo
     public void configureGlobal(AuthenticationManagerBuilder build) throws Exception{
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+    //https://stackoverflow.com/questions/65296773/thymeleaf-extras-security-doesnt-work-with-spring-security
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        return http
+                .csrf().disable()
+                .authorizeHttpRequests()
+                 .requestMatchers("/**").permitAll()
+                // .requestMatchers("/login").permitAll()
+                // .requestMatchers("/registry").permitAll()
+                .requestMatchers("/").hasAnyRole("ADMINISTRATOR","TUTOR","STUDENT")
+                // .and()
+				// .formLogin().loginPage("/login").permitAll()
+                // .and()
+                // .logout() .invalidateHttpSession(true) 
+                // .clearAuthentication(true) .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/errores/403")
+                .and().build();
+		        //@formatter:on
 
-    //@Bean
-    @Override
-    public void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
-                .antMatchers("/cl/student/**").hasRole("STUDENT")
-                .antMatchers("/cl/tutor/**").hasRole("TUTOR")
-                .antMatchers("/").hasAnyRole("ADMINISTRATOR","TUTOR","STUDENT")
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .exceptionHandling().accessDeniedPage("/errores/403");
-                //return http.build();
+        // return http.csrf().disable().authorizeHttpRequests()
+        //         .requestMatchers("/").permitAll()
+        //         .requestMatchers("/").hasAnyRole("ADMINISTRATOR","TUTOR","STUDENT")
+        //         //.requestantMatchers("/cl/admin/**").hasRole("ADMINISTRATOR")
+        //         //.requestantMatchers("/cl/student/**").hasRole("STUDENT")
+        //         //.requestantMatchers("/cl/tutor/**").hasRole("TUTOR")
+        //         .and()
+        //         .formLogin()
+        //         .loginPage("/login")
+        //         .and()
+        //         .exceptionHandling().accessDeniedPage("/errores/403")
+        //         .and().build();
     }
 
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    //     http.authorizeRequests().antMatchers("/resources/**", "/static/**", "/public/**").permitAll()
+    //             .antMatchers("/", "/signin/", "/signup","/**").permitAll()
+    //             .antMatchers("/admin/**").hasRole("ADMIN")
+    //             .antMatchers("/user/**")
+    //             .hasAnyRole("USER", "ADMIN")
+    //             .anyRequest().authenticated().and().sessionManagement()
+    //             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    //                 .and().formLogin().loginPage("/signin").defaultSuccessUrl("/")
+    //                 .usernameParameter("email").passwordParameter("password")
+    //                 .permitAll()
+    //                 .defaultSuccessUrl("/",true)
+    //             .and().logout().logoutSuccessUrl("/")
+    //             .logoutRequestMatcher(new AntPathRequestMatcher("/home/logout"));
+    //     http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    // }
 
    /*@Bean
     //@Order(1)
@@ -92,5 +124,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{//WebSecurityCo
             .roles("USER")
         ;
     }*/
-
 }
